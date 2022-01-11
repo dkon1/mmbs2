@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>&lt;no title&gt; &#8212; Mathematical Methods for Biological Sciences (part 2)</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Mathematical Methods for Biological Sciences (part 2)</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   Welcome to your Jupyter Book
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="linear_regression.html">
+   Linear regression
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/PCA.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FPCA.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <p>\section{Principal Component Analysis}
+Oftentimes in modern biology you will encounter a very large data set, with many variables and even more observations. In order to simplify it and extract some interesting information, one can find its \emph{principal components}.</p>
+<p>\subsection{the algorithm}
+To find the principal components, one needs to start with a data set in the form of a <span class="math notranslate nohighlight">\(M\)</span> by <span class="math notranslate nohighlight">\(N\)</span> matrix. For example, this could be <span class="math notranslate nohighlight">\(M\)</span> gene expression profiles measured under <span class="math notranslate nohighlight">\(N\)</span> different conditions in a microarray experiment, as in figure \ref{fig:microarray}.The first step is to decide which are the variables and which are the observations. In the case of the microarray experiment, it usually makes sense to consider different genes the variables, and to use principal components to see which genes tend to be expressed together with others.</p>
+<p>\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+\centering
+\includegraphics[width=5in]{micro_array.jpg}
+\caption{Microarray data set. \url{<a class="reference external" href="http://exploreable.files.wordpress.com/2011/04/array.jpg">http://exploreable.files.wordpress.com/2011/04/array.jpg</a>}}
+\label{fig:microarray}
+\end{figure}</p>
+<p>The second step is to compute the variance-covariance matrix of the <span class="math notranslate nohighlight">\(N\)</span> variables. Here is its definition:
+\begin{mosdef}
+The \emph{variance-covariance} matrix <span class="math notranslate nohighlight">\(C\)</span> of a data set with <span class="math notranslate nohighlight">\(N\)</span> variables <span class="math notranslate nohighlight">\(X_i\)</span> and <span class="math notranslate nohighlight">\(M\)</span> observations is an <span class="math notranslate nohighlight">\(N\)</span> by <span class="math notranslate nohighlight">\(N\)</span> matrix that contains pairwise variances between all <span class="math notranslate nohighlight">\(N\)</span> variables, so that its <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(j\)</span> element is:
+$<span class="math notranslate nohighlight">\( C_{i,j} = Cov(X_i,X_j)\)</span>$
+\end{mosdef}</p>
+<p>The third step is to diagonalize (find the eigenvalues and eigenvectors) of the covariance matrix <span class="math notranslate nohighlight">\(C\)</span>. The eigenvectors are the principal components of the <span class="math notranslate nohighlight">\(N\)</span> variables in the data set, representing linear combinations of the variables that best fit the data. Diagonalizing an <span class="math notranslate nohighlight">\(N\)</span> by <span class="math notranslate nohighlight">\(N\)</span> matrix results in <span class="math notranslate nohighlight">\(N\)</span> eigenvectors, so in order to simplify the description one needs to choose the most significant ones. This is accomplished by choosing a subset of <span class="math notranslate nohighlight">\(k\)</span> (usually 2-5) principal components with the largest eigenvalues. Here are the steps of principal component analysis (PCA):
+\begin{enumerate}
+\item Obtain dataset as a <span class="math notranslate nohighlight">\(M\)</span> by <span class="math notranslate nohighlight">\(N\)</span> matrix, with <span class="math notranslate nohighlight">\(N\)</span> variables and <span class="math notranslate nohighlight">\(M\)</span> observations
+\item Compute covariances for variable i and variable j, put them in the covariance matrix <span class="math notranslate nohighlight">\(Cov\)</span>
+\item Compute the eigenvalues and eigenvectors (principal components) of the matrix <span class="math notranslate nohighlight">\(Cov\)</span>
+\item Order the principal component by size of eigenvalues from largest to smallest and select a few as the new coordinates
+\end{enumerate}</p>
+<p>\subsection{dimensionality reduction}
+The reason that we order the PCs by their eigenvalues is that they measure the amount of variance captures by each principal component. In that, they are equivalent to the <span class="math notranslate nohighlight">\(r^2\)</span> parameter in linear regression. The sum of all the eigenvalues is equal to the total variance of all the variables:
+$<span class="math notranslate nohighlight">\( \sum_i \lambda_i = \sum Var(X_i)\)</span><span class="math notranslate nohighlight">\(
+and the fraction of variance captured by the a principal component is:
+\)</span><span class="math notranslate nohighlight">\( Var(PC_i) = \frac{\lambda_i}{ \sum_i \lambda_i}\)</span>$</p>
+<p>After sorting the principal components and selecting 2-5 with the largest eigenvalues, what do we do? First, as stated, they are useful for reducing the dimensionality of a data set. This means that one can choose to express a data set of <span class="math notranslate nohighlight">\(N\)</span> variables in terms of the coordinate set of <span class="math notranslate nohighlight">\(k\)</span> principal components. In order to express the data set in this new system of coordinates, we compute the projection coefficients for each measurement onto a give principal component. Suppose that <span class="math notranslate nohighlight">\(Y\)</span> is a set of measurements of <span class="math notranslate nohighlight">\(N\)</span> variables (e.g. genes) and <span class="math notranslate nohighlight">\(P_i\)</span> is the <span class="math notranslate nohighlight">\(i\)</span>-the principal component. Then the projection coefficient of <span class="math notranslate nohighlight">\(Y\)</span> onto <span class="math notranslate nohighlight">\(P_i\)</span> is the dot product of the two vectors (both of length <span class="math notranslate nohighlight">\(N\)</span>) divided by the squared norm (length) of the PC:
+$<span class="math notranslate nohighlight">\( c_i = \frac{\langle Y, P_i\rangle}{|| P_i ||^2} \)</span><span class="math notranslate nohighlight">\(
+If  the eigenvectors are  normalized prior to the computation (as they are by most computational packages), then the projection coefficient is just the dot product. Then the coefficients can be obtained for all of the measurements in the data set \)</span>D<span class="math notranslate nohighlight">\( (\)</span>M<span class="math notranslate nohighlight">\( by \)</span>N<span class="math notranslate nohighlight">\() by multiplying it by the matrix \)</span>P<span class="math notranslate nohighlight">\( containing the first \)</span>k<span class="math notranslate nohighlight">\( eigenvectors (principal components), which has \)</span>N<span class="math notranslate nohighlight">\( rows and \)</span>k<span class="math notranslate nohighlight">\( columns. The result is an \)</span>M<span class="math notranslate nohighlight">\( by \)</span>k<span class="math notranslate nohighlight">\( matrix \)</span>C<span class="math notranslate nohighlight">\( containing \)</span>k<span class="math notranslate nohighlight">\( coefficients for each of the \)</span>M$ measurements:</p>
+<div class="math notranslate nohighlight">
+\[
+C = D \times P
+\]</div>
+<p>Thus,  the entire data set can be expressed in a low-dimensional setting, for instance plotted in the plane of two principal components with coordinates <span class="math notranslate nohighlight">\((c_{i,1} c_{i,2})\)</span> for each data measurement <span class="math notranslate nohighlight">\(i\)</span>. This is often useful for clustering, or grouping experimental conditions based on the similarity of their principal component representations. Biologists frequently do this with complex data sets, for example grouping different cell lines together by their gene expression profiles.</p>
+<p>Here is the outline for the transformation:
+\begin{enumerate}
+\item Subtract the mean of each observation from the data matrix (if it has <span class="math notranslate nohighlight">\(M\)</span> observations in rows and <span class="math notranslate nohighlight">\(N\)</span> variables as columns, subtract the mean of each row from it)
+\item Compute the projection coefficients <span class="math notranslate nohighlight">\(C = D \times P \)</span> for each measurement and each of the <span class="math notranslate nohighlight">\(k\)</span> principal components
+\item Plot or otherwise display these coefficients as coordinates in the new vector system of the <span class="math notranslate nohighlight">\(k\)</span> PCs. This can be used to cluster or otherwise find patterns in the observations.
+\end{enumerate}
+\bibliography{dkon_zotero}
+\end{document}</p>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Dmitry Kondrashov<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
