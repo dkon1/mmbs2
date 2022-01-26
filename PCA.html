@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>&lt;no title&gt; &#8212; Mathematical Methods for Biological Sciences (part 2)</title>
+    <title>Principal Component Analysis &#8212; Mathematical Methods for Biological Sciences (part 2)</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -53,6 +53,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Optimization using gradients" href="gradient_optimization.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -92,14 +93,24 @@
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="intro.html">
-   Welcome to your Jupyter Book
+   Mathematical Methods for Biology Part 2: Algorithms
   </a>
  </li>
 </ul>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="linear_regression.html">
    Linear regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="gradient_optimization.html">
+   Optimization using gradients
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Principal Component Analysis
   </a>
  </li>
 </ul>
@@ -188,7 +199,22 @@
                 <i class="fas fa-list"></i> Contents
             </div>
             <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="simple visible nav section-nav flex-column">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#motivation-simplifying-data">
+   Motivation: simplifying data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pca-algorithm">
+   PCA algorithm
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dimensionality-reduction">
+   Dimensionality reduction
+  </a>
+ </li>
 </ul>
 
             </nav>
@@ -200,49 +226,64 @@
         
               <div>
                 
-  <p>\section{Principal Component Analysis}
-Oftentimes in modern biology you will encounter a very large data set, with many variables and even more observations. In order to simplify it and extract some interesting information, one can find its \emph{principal components}.</p>
-<p>\subsection{the algorithm}
-To find the principal components, one needs to start with a data set in the form of a <span class="math notranslate nohighlight">\(M\)</span> by <span class="math notranslate nohighlight">\(N\)</span> matrix. For example, this could be <span class="math notranslate nohighlight">\(M\)</span> gene expression profiles measured under <span class="math notranslate nohighlight">\(N\)</span> different conditions in a microarray experiment, as in figure \ref{fig:microarray}.The first step is to decide which are the variables and which are the observations. In the case of the microarray experiment, it usually makes sense to consider different genes the variables, and to use principal components to see which genes tend to be expressed together with others.</p>
-<p>\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
-\centering
-\includegraphics[width=5in]{micro_array.jpg}
-\caption{Microarray data set. \url{<a class="reference external" href="http://exploreable.files.wordpress.com/2011/04/array.jpg">http://exploreable.files.wordpress.com/2011/04/array.jpg</a>}}
-\label{fig:microarray}
-\end{figure}</p>
-<p>The second step is to compute the variance-covariance matrix of the <span class="math notranslate nohighlight">\(N\)</span> variables. Here is its definition:
-\begin{mosdef}
-The \emph{variance-covariance} matrix <span class="math notranslate nohighlight">\(C\)</span> of a data set with <span class="math notranslate nohighlight">\(N\)</span> variables <span class="math notranslate nohighlight">\(X_i\)</span> and <span class="math notranslate nohighlight">\(M\)</span> observations is an <span class="math notranslate nohighlight">\(N\)</span> by <span class="math notranslate nohighlight">\(N\)</span> matrix that contains pairwise variances between all <span class="math notranslate nohighlight">\(N\)</span> variables, so that its <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(j\)</span> element is:
-$<span class="math notranslate nohighlight">\( C_{i,j} = Cov(X_i,X_j)\)</span>$
-\end{mosdef}</p>
-<p>The third step is to diagonalize (find the eigenvalues and eigenvectors) of the covariance matrix <span class="math notranslate nohighlight">\(C\)</span>. The eigenvectors are the principal components of the <span class="math notranslate nohighlight">\(N\)</span> variables in the data set, representing linear combinations of the variables that best fit the data. Diagonalizing an <span class="math notranslate nohighlight">\(N\)</span> by <span class="math notranslate nohighlight">\(N\)</span> matrix results in <span class="math notranslate nohighlight">\(N\)</span> eigenvectors, so in order to simplify the description one needs to choose the most significant ones. This is accomplished by choosing a subset of <span class="math notranslate nohighlight">\(k\)</span> (usually 2-5) principal components with the largest eigenvalues. Here are the steps of principal component analysis (PCA):
-\begin{enumerate}
-\item Obtain dataset as a <span class="math notranslate nohighlight">\(M\)</span> by <span class="math notranslate nohighlight">\(N\)</span> matrix, with <span class="math notranslate nohighlight">\(N\)</span> variables and <span class="math notranslate nohighlight">\(M\)</span> observations
-\item Compute covariances for variable i and variable j, put them in the covariance matrix <span class="math notranslate nohighlight">\(Cov\)</span>
-\item Compute the eigenvalues and eigenvectors (principal components) of the matrix <span class="math notranslate nohighlight">\(Cov\)</span>
-\item Order the principal component by size of eigenvalues from largest to smallest and select a few as the new coordinates
-\end{enumerate}</p>
-<p>\subsection{dimensionality reduction}
-The reason that we order the PCs by their eigenvalues is that they measure the amount of variance captures by each principal component. In that, they are equivalent to the <span class="math notranslate nohighlight">\(r^2\)</span> parameter in linear regression. The sum of all the eigenvalues is equal to the total variance of all the variables:
-$<span class="math notranslate nohighlight">\( \sum_i \lambda_i = \sum Var(X_i)\)</span><span class="math notranslate nohighlight">\(
-and the fraction of variance captured by the a principal component is:
-\)</span><span class="math notranslate nohighlight">\( Var(PC_i) = \frac{\lambda_i}{ \sum_i \lambda_i}\)</span>$</p>
-<p>After sorting the principal components and selecting 2-5 with the largest eigenvalues, what do we do? First, as stated, they are useful for reducing the dimensionality of a data set. This means that one can choose to express a data set of <span class="math notranslate nohighlight">\(N\)</span> variables in terms of the coordinate set of <span class="math notranslate nohighlight">\(k\)</span> principal components. In order to express the data set in this new system of coordinates, we compute the projection coefficients for each measurement onto a give principal component. Suppose that <span class="math notranslate nohighlight">\(Y\)</span> is a set of measurements of <span class="math notranslate nohighlight">\(N\)</span> variables (e.g. genes) and <span class="math notranslate nohighlight">\(P_i\)</span> is the <span class="math notranslate nohighlight">\(i\)</span>-the principal component. Then the projection coefficient of <span class="math notranslate nohighlight">\(Y\)</span> onto <span class="math notranslate nohighlight">\(P_i\)</span> is the dot product of the two vectors (both of length <span class="math notranslate nohighlight">\(N\)</span>) divided by the squared norm (length) of the PC:
-$<span class="math notranslate nohighlight">\( c_i = \frac{\langle Y, P_i\rangle}{|| P_i ||^2} \)</span><span class="math notranslate nohighlight">\(
-If  the eigenvectors are  normalized prior to the computation (as they are by most computational packages), then the projection coefficient is just the dot product. Then the coefficients can be obtained for all of the measurements in the data set \)</span>D<span class="math notranslate nohighlight">\( (\)</span>M<span class="math notranslate nohighlight">\( by \)</span>N<span class="math notranslate nohighlight">\() by multiplying it by the matrix \)</span>P<span class="math notranslate nohighlight">\( containing the first \)</span>k<span class="math notranslate nohighlight">\( eigenvectors (principal components), which has \)</span>N<span class="math notranslate nohighlight">\( rows and \)</span>k<span class="math notranslate nohighlight">\( columns. The result is an \)</span>M<span class="math notranslate nohighlight">\( by \)</span>k<span class="math notranslate nohighlight">\( matrix \)</span>C<span class="math notranslate nohighlight">\( containing \)</span>k<span class="math notranslate nohighlight">\( coefficients for each of the \)</span>M$ measurements:</p>
+  <div class="tex2jax_ignore mathjax_ignore section" id="principal-component-analysis">
+<h1>Principal Component Analysis<a class="headerlink" href="#principal-component-analysis" title="Permalink to this headline">¶</a></h1>
+<p>Oftentimes in modern biology you will encounter a very large data set, with many variables and even more observations. In order to simplify it and extract some interesting information, one can find its principal components.</p>
+<div class="section" id="motivation-simplifying-data">
+<h2>Motivation: simplifying data<a class="headerlink" href="#motivation-simplifying-data" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="pca-algorithm">
+<h2>PCA algorithm<a class="headerlink" href="#pca-algorithm" title="Permalink to this headline">¶</a></h2>
+<p>To find the principal components, one needs to start with a data set in the form of a <span class="math notranslate nohighlight">\(M\)</span> by <span class="math notranslate nohighlight">\(N\)</span> matrix. For example, this could be <span class="math notranslate nohighlight">\(M\)</span> gene expression profiles measured under <span class="math notranslate nohighlight">\(N\)</span> different conditions in a microarray experiment, as in <a class="reference internal" href="#fig-micro-array"><span class="std std-numref">Fig. 7</span></a>.The first step is to decide which are the variables and which are the observations. In the case of the microarray experiment, it usually makes sense to consider different genes the variables, and to use principal components to see which genes tend to be expressed together with others.</p>
+<div class="figure align-default" id="fig-micro-array">
+<img alt="_images/micro_array.jpg" src="_images/micro_array.jpg" />
+<p class="caption"><span class="caption-number">Fig. 7 </span><span class="caption-text">Image of a microarray plate, <a class="reference external" href="http://exploreable.files.wordpress.com/2011/04/array.jpg">source</a></span><a class="headerlink" href="#fig-micro-array" title="Permalink to this image">¶</a></p>
+</div>
+<p>The second step is to compute the variance-covariance matrix of the <span class="math notranslate nohighlight">\(N\)</span> variables.</p>
+<div class="admonition-definition admonition">
+<p class="admonition-title">Definition</p>
+<p>The <em>variance-covariance</em> matrix <span class="math notranslate nohighlight">\(C\)</span> of a data set with <span class="math notranslate nohighlight">\(N\)</span> variables <span class="math notranslate nohighlight">\(X_i\)</span> and <span class="math notranslate nohighlight">\(M\)</span> observations is an <span class="math notranslate nohighlight">\(N\)</span> by <span class="math notranslate nohighlight">\(N\)</span> matrix that contains pairwise variances between all <span class="math notranslate nohighlight">\(N\)</span> variables, so that its <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(j\)</span> element is:
+$<span class="math notranslate nohighlight">\( C_{i,j} = Cov(X_i,X_j)\)</span>$</p>
+</div>
+<p>The third step is to diagonalize (find the eigenvalues and eigenvectors) of the covariance matrix <span class="math notranslate nohighlight">\(C\)</span>. The eigenvectors are the principal components of the <span class="math notranslate nohighlight">\(N\)</span> variables in the data set, representing linear combinations of the variables that best fit the data. Diagonalizing an <span class="math notranslate nohighlight">\(N\)</span> by <span class="math notranslate nohighlight">\(N\)</span> matrix results in <span class="math notranslate nohighlight">\(N\)</span> eigenvectors, so in order to simplify the description one needs to choose the most significant ones. This is accomplished by choosing a subset of <span class="math notranslate nohighlight">\(k\)</span> (usually 2-5) principal components with the largest eigenvalues. Here are the steps of principal component analysis (PCA):</p>
+<div class="tip admonition">
+<p class="admonition-title">PCA algorithm</p>
+<ol class="simple">
+<li><p>Obtain dataset as a <span class="math notranslate nohighlight">\(M\)</span> by <span class="math notranslate nohighlight">\(N\)</span> matrix, with <span class="math notranslate nohighlight">\(N\)</span> variables and <span class="math notranslate nohighlight">\(M\)</span> observations</p></li>
+<li><p>Compute covariances for variable i and variable j, put them in the covariance matrix <span class="math notranslate nohighlight">\(Cov\)</span></p></li>
+<li><p>Compute the eigenvalues and eigenvectors (principal components) of the matrix <span class="math notranslate nohighlight">\(Cov\)</span></p></li>
+<li><p>Order the principal component by size of eigenvalues from largest to smallest and select a few as the new coordinates</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="dimensionality-reduction">
+<h2>Dimensionality reduction<a class="headerlink" href="#dimensionality-reduction" title="Permalink to this headline">¶</a></h2>
+<p>The reason that we order the PCs by their eigenvalues is that they measure the amount of variance captures by each principal component. In that, they are equivalent to the coefficient of determination <span class="math notranslate nohighlight">\(r^2\)</span>  in linear regression. The sum of all the eigenvalues is equal to the total variance of all the variables:</p>
+<div class="math notranslate nohighlight">
+\[ \sum_i \lambda_i = \sum Var(X_i)\]</div>
+<p>and the fraction of variance captured by the a principal component is:</p>
+<div class="math notranslate nohighlight">
+\[ Var(PC_i) = \frac{\lambda_i}{ \sum_i \lambda_i}\]</div>
+<p>After sorting the principal components and selecting 2-5 with the largest eigenvalues, what do we do? First, as stated, they are useful for reducing the dimensionality of a data set. This means that one can choose to express a data set of <span class="math notranslate nohighlight">\(N\)</span> variables in terms of the coordinate set of <span class="math notranslate nohighlight">\(k\)</span> principal components. In order to express the data set in this new system of coordinates, we compute the projection coefficients for each measurement onto a give principal component. Suppose that <span class="math notranslate nohighlight">\(Y\)</span> is a set of measurements of <span class="math notranslate nohighlight">\(N\)</span> variables (e.g. genes) and <span class="math notranslate nohighlight">\(P_i\)</span> is the <span class="math notranslate nohighlight">\(i\)</span>-the principal component. Then the projection coefficient of <span class="math notranslate nohighlight">\(Y\)</span> onto <span class="math notranslate nohighlight">\(P_i\)</span> is the dot product of the two vectors (both of length <span class="math notranslate nohighlight">\(N\)</span>) divided by the squared norm (length) of the PC:</p>
+<div class="math notranslate nohighlight">
+\[ c_i = \frac{\langle Y, P_i\rangle}{|| P_i ||^2} \]</div>
+<p>If  the eigenvectors are  normalized prior to the computation (as they are by most computational packages), then the projection coefficient is just the dot product. Then the coefficients can be obtained for all of the measurements in the data set <span class="math notranslate nohighlight">\(D\)</span> (<span class="math notranslate nohighlight">\(M\)</span> by <span class="math notranslate nohighlight">\(N\)</span>) by multiplying it by the matrix <span class="math notranslate nohighlight">\(P\)</span> containing the first <span class="math notranslate nohighlight">\(k\)</span> eigenvectors (principal components), which has <span class="math notranslate nohighlight">\(N\)</span> rows and <span class="math notranslate nohighlight">\(k\)</span> columns. The result is an <span class="math notranslate nohighlight">\(M\)</span> by <span class="math notranslate nohighlight">\(k\)</span> matrix <span class="math notranslate nohighlight">\(C\)</span> containing <span class="math notranslate nohighlight">\(k\)</span> coefficients for each of the <span class="math notranslate nohighlight">\(M\)</span> measurements:</p>
 <div class="math notranslate nohighlight">
 \[
 C = D \times P
 \]</div>
 <p>Thus,  the entire data set can be expressed in a low-dimensional setting, for instance plotted in the plane of two principal components with coordinates <span class="math notranslate nohighlight">\((c_{i,1} c_{i,2})\)</span> for each data measurement <span class="math notranslate nohighlight">\(i\)</span>. This is often useful for clustering, or grouping experimental conditions based on the similarity of their principal component representations. Biologists frequently do this with complex data sets, for example grouping different cell lines together by their gene expression profiles.</p>
-<p>Here is the outline for the transformation:
-\begin{enumerate}
-\item Subtract the mean of each observation from the data matrix (if it has <span class="math notranslate nohighlight">\(M\)</span> observations in rows and <span class="math notranslate nohighlight">\(N\)</span> variables as columns, subtract the mean of each row from it)
-\item Compute the projection coefficients <span class="math notranslate nohighlight">\(C = D \times P \)</span> for each measurement and each of the <span class="math notranslate nohighlight">\(k\)</span> principal components
-\item Plot or otherwise display these coefficients as coordinates in the new vector system of the <span class="math notranslate nohighlight">\(k\)</span> PCs. This can be used to cluster or otherwise find patterns in the observations.
-\end{enumerate}
-\bibliography{dkon_zotero}
-\end{document}</p>
+<p>Here is the outline for the transformation:</p>
+<div class="tip admonition">
+<p class="admonition-title">Dimensionality reduction</p>
+<ol class="simple">
+<li><p>Subtract the mean of each observation from the data matrix (if it has <span class="math notranslate nohighlight">\(M\)</span> observations in rows and <span class="math notranslate nohighlight">\(N\)</span> variables as columns, subtract the mean of each row from it)</p></li>
+<li><p>Compute the projection coefficients <span class="math notranslate nohighlight">\(C = D \times P \)</span> for each measurement and each of the <span class="math notranslate nohighlight">\(k\)</span> principal components</p></li>
+<li><p>Plot or otherwise display these coefficients as coordinates in the new vector system of the <span class="math notranslate nohighlight">\(k\)</span> PCs. This can be used to cluster or otherwise find patterns in the observations.</p></li>
+</ol>
+</div>
+</div>
+</div>
 
     <script type="text/x-thebe-config">
     {
@@ -268,7 +309,14 @@ C = D \times P
               
         
             <!-- Previous / next buttons -->
-<div class='prev-next-area'>
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="gradient_optimization.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Optimization using gradients</p>
+        </div>
+    </a>
 </div>
         
         </div>
