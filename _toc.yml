@@ -6,3 +6,4 @@ root: intro
 chapters:
 - file: linear_regression
 - file: gradient_optimization
+- file: PCA
