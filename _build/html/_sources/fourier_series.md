@@ -198,17 +198,27 @@ $$ x_n  =  X^{(ooeeo...)}$$
 The question is, how does the index $n$ of the data point correspond to the string of even and odd divisions in the DFT? The answer turns out to be simple and elegant in binary representation of indices. Consider, for example, a data set of four input values, indexed $\{x_0,x_1,x_2, x_3\}$. The first division splits them into $\{x_0,x_2\}$ and $\{x_1,x_3\}$, and the second subdivides them into singleton sets: $\{x_0\},\{x_2\},\{x_1\},\{x_3\}$. The rearrangement of indices due to divisions into evens and odds is captured by \emph{bit reversal} of the binary indices. In binary, we can write $0=00; 1=01; 2=10; 3=11$. Reversing the bits, that is re-writing the binary numbers from right to left, yields: $00=0, 10=2, 01=1; 11=3$, which is exactly the order we produced by two splittings. Therefore, we can find the DFTs of each of the resulting singleton sets by reordering the input values by bit-reversal and then recombining them using the Danielson-Lanczos formula above.
 
 **Example.** Let us calculate the DFT for the data set $\{x_0, x_1, x_2, x_3\} = \{2,  -1, 2, -1 \}$. As we saw above, we split the four inputs into halves twice until we are left with singleton sets, which are then arranges as follows: $ \{x_0, x_1, x_2, x_3 \}  = \{2,  2 -1, -1 \}$. Then we recombine the value with appropriate twiddle factors to calculate the DFT. First, calculate the twiddle factors for DFT with $N=2$:
+
 $$w_0 = 1; \;  w_1 = e^{-i\pi} = -1$$
+
 $$ X_0^{(e)} = x_0 + x_2 = 4 $$
+
 $$ X_1^{(e)} = x_0 + w^1x_2 = 0$$
+
 $$ X_0^{(o)} =  x_1 + x_3 =  - 2$$
+
 $$ X_1^{(o)} =  x_1 + w^1 x_3 =  0$$
 
 Calculate the twiddle factors for $N=4$:
+
 $$w_0 = 1; \;  w_1 = e^{-i\pi/2} = -i ; \; w_2 = e^{-i\pi } = -1 ;\;  w_3 = e^{-i3\pi/2} = i$$
+
 $$ X_0 =  X_0^{(e)}  + X_0^{(o)} = 2$$
+
 $$ X_1 =  X_1^{(e)}  + w^1 X_1^{(o)}  = 0 $$
+
 $$ X_2 =  X_0^{(e)}  + w^2 X_1^{(o)}  = 6$$
+
 $$ X_3 =  X_1^{(e)}  + w^3 X_1^{(o)} =  0 $$
 
 Each DFT coefficient contains information about the periodicity of the data set: the zeroth one is the sum (average signal); the first one measures the strength of the period one component (in this case, none), the second one is the strength of the period two component (in this case, the only frequency present), and the third one mirrors the period one (since there cannot be a period three signal measured in four points.)
