@@ -519,18 +519,28 @@ $<span class="math notranslate nohighlight">\( X_k =  X^{(ee)} + w^{2k}X^{(eo)} 
 <div class="math notranslate nohighlight">
 \[ x_n  =  X^{(ooeeo...)}\]</div>
 <p>The question is, how does the index <span class="math notranslate nohighlight">\(n\)</span> of the data point correspond to the string of even and odd divisions in the DFT? The answer turns out to be simple and elegant in binary representation of indices. Consider, for example, a data set of four input values, indexed <span class="math notranslate nohighlight">\(\{x_0,x_1,x_2, x_3\}\)</span>. The first division splits them into <span class="math notranslate nohighlight">\(\{x_0,x_2\}\)</span> and <span class="math notranslate nohighlight">\(\{x_1,x_3\}\)</span>, and the second subdivides them into singleton sets: <span class="math notranslate nohighlight">\(\{x_0\},\{x_2\},\{x_1\},\{x_3\}\)</span>. The rearrangement of indices due to divisions into evens and odds is captured by \emph{bit reversal} of the binary indices. In binary, we can write <span class="math notranslate nohighlight">\(0=00; 1=01; 2=10; 3=11\)</span>. Reversing the bits, that is re-writing the binary numbers from right to left, yields: <span class="math notranslate nohighlight">\(00=0, 10=2, 01=1; 11=3\)</span>, which is exactly the order we produced by two splittings. Therefore, we can find the DFTs of each of the resulting singleton sets by reordering the input values by bit-reversal and then recombining them using the Danielson-Lanczos formula above.</p>
-<p><strong>Example.</strong> Let us calculate the DFT for the data set <span class="math notranslate nohighlight">\(\{x_0, x_1, x_2, x_3\} = \{2,  -1, 2, -1 \}\)</span>. As we saw above, we split the four inputs into halves twice until we are left with singleton sets, which are then arranges as follows: <span class="math notranslate nohighlight">\( \{x_0, x_1, x_2, x_3 \}  = \{2,  2 -1, -1 \}\)</span>. Then we recombine the value with appropriate twiddle factors to calculate the DFT. First, calculate the twiddle factors for DFT with <span class="math notranslate nohighlight">\(N=2\)</span>:
-$<span class="math notranslate nohighlight">\(w_0 = 1; \;  w_1 = e^{-i\pi} = -1\)</span><span class="math notranslate nohighlight">\(
-\)</span><span class="math notranslate nohighlight">\( X_0^{(e)} = x_0 + x_2 = 4 \)</span><span class="math notranslate nohighlight">\(
-\)</span><span class="math notranslate nohighlight">\( X_1^{(e)} = x_0 + w^1x_2 = 0\)</span><span class="math notranslate nohighlight">\(
-\)</span><span class="math notranslate nohighlight">\( X_0^{(o)} =  x_1 + x_3 =  - 2\)</span><span class="math notranslate nohighlight">\(
-\)</span><span class="math notranslate nohighlight">\( X_1^{(o)} =  x_1 + w^1 x_3 =  0\)</span>$</p>
-<p>Calculate the twiddle factors for <span class="math notranslate nohighlight">\(N=4\)</span>:
-$<span class="math notranslate nohighlight">\(w_0 = 1; \;  w_1 = e^{-i\pi/2} = -i ; \; w_2 = e^{-i\pi } = -1 ;\;  w_3 = e^{-i3\pi/2} = i\)</span><span class="math notranslate nohighlight">\(
-\)</span><span class="math notranslate nohighlight">\( X_0 =  X_0^{(e)}  + X_0^{(o)} = 2\)</span><span class="math notranslate nohighlight">\(
-\)</span><span class="math notranslate nohighlight">\( X_1 =  X_1^{(e)}  + w^1 X_1^{(o)}  = 0 \)</span><span class="math notranslate nohighlight">\(
-\)</span><span class="math notranslate nohighlight">\( X_2 =  X_0^{(e)}  + w^2 X_1^{(o)}  = 6\)</span><span class="math notranslate nohighlight">\(
-\)</span><span class="math notranslate nohighlight">\( X_3 =  X_1^{(e)}  + w^3 X_1^{(o)} =  0 \)</span>$</p>
+<p><strong>Example.</strong> Let us calculate the DFT for the data set <span class="math notranslate nohighlight">\(\{x_0, x_1, x_2, x_3\} = \{2,  -1, 2, -1 \}\)</span>. As we saw above, we split the four inputs into halves twice until we are left with singleton sets, which are then arranges as follows: <span class="math notranslate nohighlight">\( \{x_0, x_1, x_2, x_3 \}  = \{2,  2 -1, -1 \}\)</span>. Then we recombine the value with appropriate twiddle factors to calculate the DFT. First, calculate the twiddle factors for DFT with <span class="math notranslate nohighlight">\(N=2\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[w_0 = 1; \;  w_1 = e^{-i\pi} = -1\]</div>
+<div class="math notranslate nohighlight">
+\[ X_0^{(e)} = x_0 + x_2 = 4 \]</div>
+<div class="math notranslate nohighlight">
+\[ X_1^{(e)} = x_0 + w^1x_2 = 0\]</div>
+<div class="math notranslate nohighlight">
+\[ X_0^{(o)} =  x_1 + x_3 =  - 2\]</div>
+<div class="math notranslate nohighlight">
+\[ X_1^{(o)} =  x_1 + w^1 x_3 =  0\]</div>
+<p>Calculate the twiddle factors for <span class="math notranslate nohighlight">\(N=4\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[w_0 = 1; \;  w_1 = e^{-i\pi/2} = -i ; \; w_2 = e^{-i\pi } = -1 ;\;  w_3 = e^{-i3\pi/2} = i\]</div>
+<div class="math notranslate nohighlight">
+\[ X_0 =  X_0^{(e)}  + X_0^{(o)} = 2\]</div>
+<div class="math notranslate nohighlight">
+\[ X_1 =  X_1^{(e)}  + w^1 X_1^{(o)}  = 0 \]</div>
+<div class="math notranslate nohighlight">
+\[ X_2 =  X_0^{(e)}  + w^2 X_1^{(o)}  = 6\]</div>
+<div class="math notranslate nohighlight">
+\[ X_3 =  X_1^{(e)}  + w^3 X_1^{(o)} =  0 \]</div>
 <p>Each DFT coefficient contains information about the periodicity of the data set: the zeroth one is the sum (average signal); the first one measures the strength of the period one component (in this case, none), the second one is the strength of the period two component (in this case, the only frequency present), and the third one mirrors the period one (since there cannot be a period three signal measured in four points.)</p>
 <p>This calculation for a small data set illustrates how the FFT algorithm reduces the calculation of the DFT coefficients to reassembling the values of the inputs <span class="math notranslate nohighlight">\(x_k\)</span> with the bit-reversed indices with appropriate twiddle factors. This is illustrated in <a class="reference internal" href="#fig-fft-butterfly"><span class="std std-numref">Fig. 11</span></a>, known as the “FFT butterfly” for its visual appearance. The figure demonstrates how the original data points on the left, if arranged in the bit-reversed order are scrambled up by the even/odd divisions, and how they end up in the normal order on the right hand side.</p>
 <div class="figure align-default" id="fig-fft-butterfly">
