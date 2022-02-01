@@ -1,0 +1,598 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fourier series: decomposition by frequency &#8212; Mathematical Methods for Biological Sciences (part 2)</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Principal Component Analysis" href="PCA.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Mathematical Methods for Biological Sciences (part 2)</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   Mathematical Methods for Biology Part 2: Algorithms
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="linear_regression.html">
+   Linear regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="gradient_optimization.html">
+   Optimization using gradients
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="PCA.html">
+   Principal Component Analysis
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Fourier series: decomposition by frequency
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/fourier_series.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Ffourier_series.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#periodic-signals">
+   Periodic signals
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#amplitude-period-and-frequency">
+     amplitude, period, and frequency
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#brain-waves-in-eeg">
+     brain waves in EEG
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#periodic-functions-as-a-basis-set">
+   Periodic functions as a basis set
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#fourier-decomposition-of-a-square-wave">
+     Fourier decomposition of a square wave
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#complex-fourier-series">
+     complex Fourier series
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#discrete-fourier-transform">
+   Discrete Fourier Transform
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sampling-theorem-and-aliasing">
+   sampling theorem and aliasing
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fast-fourier-transform">
+   Fast Fourier Transform
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#splitting-the-data-into-even-and-odd-inputs">
+     splitting the data into even and odd inputs
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#recursive-splitting-and-reassembly">
+     recursive splitting and reassembly
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Fourier series: decomposition by frequency</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#periodic-signals">
+   Periodic signals
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#amplitude-period-and-frequency">
+     amplitude, period, and frequency
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#brain-waves-in-eeg">
+     brain waves in EEG
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#periodic-functions-as-a-basis-set">
+   Periodic functions as a basis set
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#fourier-decomposition-of-a-square-wave">
+     Fourier decomposition of a square wave
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#complex-fourier-series">
+     complex Fourier series
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#discrete-fourier-transform">
+   Discrete Fourier Transform
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sampling-theorem-and-aliasing">
+   sampling theorem and aliasing
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fast-fourier-transform">
+   Fast Fourier Transform
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#splitting-the-data-into-even-and-odd-inputs">
+     splitting the data into even and odd inputs
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#recursive-splitting-and-reassembly">
+     recursive splitting and reassembly
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="fourier-series-decomposition-by-frequency">
+<h1>Fourier series: decomposition by frequency<a class="headerlink" href="#fourier-series-decomposition-by-frequency" title="Permalink to this headline">¶</a></h1>
+<p>In this chapter we present the method of Fourier analysis, which extracts information about frequency from a data set. In the modeling section we motivate the notion of frequency analysis with the example of electro-encephalogram (EEG) recordings of electrical activity of the central nervous system. The analytic section develops the mathematical notion of function spaces, and the basis of sine and cosine functions. This is used for Fourier decomposition, or description of an arbitrary periodic function as a sum of sines and cosines. In the computational section, we describe the computation of Fourier decomposition using an efficient algorithm called the Fast Fourier Transform, which is a seminal development in the history of computation.</p>
+<div class="section" id="periodic-signals">
+<h2>Periodic signals<a class="headerlink" href="#periodic-signals" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="amplitude-period-and-frequency">
+<h3>amplitude, period, and frequency<a class="headerlink" href="#amplitude-period-and-frequency" title="Permalink to this headline">¶</a></h3>
+<p>Many biological processes are periodic, or repetitive, with a particular pattern that serves biological needs; common examples are waves of activity in the heart muscle, repeated spikes of voltage across neural membranes, and daily Circadian rhythms in physiological regulation. It is highly useful to measure the properties of these periodic activities, and to describe them using idealized mathematical functions, specifically sines and cosines.</p>
+<p>As a reminder sines and cosines both have period <span class="math notranslate nohighlight">\(2\pi\)</span>, but the sine is an odd function: <span class="math notranslate nohighlight">\(\sin(x) = -\sin(-x)\)</span>, whereas the cosine is an even function: <span class="math notranslate nohighlight">\(\cos(x) = \cos(-x)\)</span>. Furthermore, by adding a couple of parameters, one can produce a sine or cosine wave of any period and any amplitude. In the following expression, the <em>period</em> of both the sine and the cosine is <span class="math notranslate nohighlight">\(L\)</span>, and thus the <em>frequency</em> is <span class="math notranslate nohighlight">\(1/L\)</span>, while the amplitude of the sine is <span class="math notranslate nohighlight">\(A\)</span> and that of the cosine is <span class="math notranslate nohighlight">\(B\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[ A \cos(2\pi x/L); \;  B\sin(2\pi x/L)\]</div>
+</div>
+<div class="section" id="brain-waves-in-eeg">
+<h3>brain waves in EEG<a class="headerlink" href="#brain-waves-in-eeg" title="Permalink to this headline">¶</a></h3>
+<p>Of course, not all periodic functions are sines and cosines, but sines and cosines can be used to describe the types of frequencies present in a periodic signal. Consider the following electroencephalograph (EEG) data collected from electrodes on the scalp of a human:</p>
+<div class="figure align-default" id="fig-eeg-plot">
+<img alt="_images/eegplot.png" src="_images/eegplot.png" />
+<p class="caption"><span class="caption-number">Fig. 8 </span><span class="caption-text">EEG signal recordings from multiple electrodes <a class="reference external" href="https://www.cs.colostate.edu/eeg/data/json/doc/tutorial/_build/html/getting_started.html#getting-started">source</a></span><a class="headerlink" href="#fig-eeg-plot" title="Permalink to this image">¶</a></p>
+</div>
+<p>By inspection, it appears as if there are some periodic processes producing these data, but these are not neat periodic sine or cosine waves. Instead, we have many different overlapping signals, produced by huge numbers of electrical pulses in the brain, each with different frequency. In order to analyze this signal, we need to decompose it into contributions of different frequencies. Signals of different frequencies,called brain waves in neuroscience, serve distinct purposes: for instance, different stages of sleep can be characterized by the frequencies of the brain waves. In the following section we will learn how to describe complex, periodic data sets, such as the one in <a class="reference internal" href="#fig-eeg-plot"><span class="std std-numref">Fig. 8</span></a>, in terms of the contributions, or amplitudes, of sines and cosines of different frequencies. This way we can quantify the presence of different types of brain waves in a given EEG recording.</p>
+</div>
+</div>
+<div class="section" id="periodic-functions-as-a-basis-set">
+<h2>Periodic functions as a basis set<a class="headerlink" href="#periodic-functions-as-a-basis-set" title="Permalink to this headline">¶</a></h2>
+<p>We now introduce the idea of a space of functions, instead of vectors, and describe how to decompose any given function in terms of a basis of other functions.  Joseph Fourier postulated in 1822 that any function can be described by an infinite sum of sine functions. Some of the details were incorrect, but he introduced an a  revolutionary concept that has found fundamental applications in a multitude of fields of science, from acoustics to medical imaging. The fact is that any function on a finite interval of length <span class="math notranslate nohighlight">\(L\)</span> (or a periodic function with period <span class="math notranslate nohighlight">\(L\)</span>, which is equivalent) can be represented exactly by an infinite sum of sines and cosines, plus a constant term:</p>
+<div class="math notranslate nohighlight">
+\[
+ f(x) = a_0 + \sum_{k=1}^\infty a_k \cos(2\pi k x/L)   + \sum_{i=1}^\infty b_k \sin(2\pi k x/L)
+\]</div>
+<p>Notice that this is the same concept of decomposition in terms of a basis set. Any such function can be written as the sum of sines and cosines, and only the coefficients are different for different functions. The main difference is that vector spaces (such as <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span>) have finite basis sets of vectors, while a function space (e.g. the space of all functions with period <span class="math notranslate nohighlight">\(L\)</span>) has an infinite basis set of functions (e.g. sines and cosines with different frequencies.) To be specific, let us define these concepts.</p>
+<div class="admonition-definition admonition">
+<p class="admonition-title">Definition</p>
+<p>A <em>function space</em> is a collection of all functions defined over a given domain, for example the interval <span class="math notranslate nohighlight">\([-L/2, L/2]\)</span>, that have a finite norm, to be defined below.</p>
+</div>
+<p>The notion of the norm of a function is similar to the norm, or magnitude of a vector. The reason for restricting function spaces to functions with a finite norm, is to ensure that computations of various quantities of interests are valid and do not blow up. Now let us define the function norm:</p>
+<div class="admonition-definition admonition">
+<p class="admonition-title">Definition</p>
+<p>The <em>norm</em> of a function <span class="math notranslate nohighlight">\(f(x)\)</span>, denoted <span class="math notranslate nohighlight">\(||f||\)</span>, is a mapping from the function space into nonnegative real numbers, which obeys the following rules:</p>
+<ol class="simple">
+<li><p><span class="math notranslate nohighlight">\(||f|| = 0\)</span> iff <span class="math notranslate nohighlight">\(f(x) = 0\)</span> (the function is zero everywhere)</p></li>
+<li><p><span class="math notranslate nohighlight">\(||af|| = a||f||\)</span> for any real number <span class="math notranslate nohighlight">\(a\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(|| f+g || \leq ||f|| + ||g||\)</span> for any functions <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(g\)</span> in the function space (triangle inequality)</p></li>
+</ol>
+</div>
+<p>The norm that we will utilize in the function spaces is called the <span class="math notranslate nohighlight">\(L^2\)</span> norm and it is defined as follows:</p>
+<div class="admonition-definition admonition">
+<p class="admonition-title">Definition</p>
+<p>The <span class="math notranslate nohighlight">\(L^2\)</span> norm of a real-valued function <span class="math notranslate nohighlight">\(f(x)\)</span> over an interval <span class="math notranslate nohighlight">\([-L/2,L/2]\)</span> is defined as follows:</p>
+<div class="math notranslate nohighlight">
+\[ ||f|| =\sqrt{\int_{-L/2}^{L/2} f(x)^2 dx}\]</div>
+</div>
+<p>The <span class="math notranslate nohighlight">\(L^2\)</span> norm in function spaces is the square root of the integral of the square of the function values over the interval of its definition (which can be extended to the entire real number line, in the limit of <span class="math notranslate nohighlight">\(L \to \infty\)</span>). This is the equivalent of the Euclidean distance norm in vector spaces, which if you recall is the square root of the  sum of squares of all the components of the vector. There are many possible norms of function spaces, but the <span class="math notranslate nohighlight">\(L^2\)</span> norm is mathematically special, because it is derived from the inner product of the function space:</p>
+<div class="admonition-definition admonition">
+<p class="admonition-title">Definition</p>
+<p>The <em>inner product</em> between two functions <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(g\)</span> defined on the same interval <span class="math notranslate nohighlight">\([-L/2,L/2]\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[&lt;f, g&gt;  = \int_{-L/2}^{L/2} f(x)g(x) dx\]</div>
+</div>
+<p>The function norm can be defined in terms of the inner product: <span class="math notranslate nohighlight">\(||f(x)|| = \sqrt{&lt;f(x), f(x)&gt;}\)</span>. This defines the machinery for computing the “size”” of a function, measured by its norm, as well as the “similarity” between two functions, measured by the inner product. If two functions <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(g\)</span> are very similar, the inner product is close to the square of the norm of <span class="math notranslate nohighlight">\(f\)</span> (or <span class="math notranslate nohighlight">\(g\)</span>). If <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(g\)</span> are very similar, but flipped by a negative sign, the inner product is close to negative of the square of the norm of  <span class="math notranslate nohighlight">\(f\)</span> (or <span class="math notranslate nohighlight">\(g\)</span>). On the other hand, if the two functions are dissimilar - loosely speaking, if <span class="math notranslate nohighlight">\(f\)</span> is positive, <span class="math notranslate nohighlight">\(g\)</span> is sometimes positive, sometimes negative, then the product of the values of <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(g\)</span> is sometimes positive and sometimes negative, and thus its integral will add to be close to zero. This is how one can define orthogonality of two functions:</p>
+<div class="admonition-definition admonition">
+<p class="admonition-title">Definition</p>
+<p>Two functions <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(g\)</span> in a function space are <em>orthogonal</em> if <span class="math notranslate nohighlight">\(&lt;f,g&gt; = 0\)</span>.</p>
+</div>
+<p>Now that we can describe the coefficients for the sines are cosines, by using the inner product of the function we are decomposing, with the basis functions (sines and cosines) in a manner analogous to the basis decomposition described for vector spaces  in Chapter 8. The coefficients for the sines and cosines of the Fourier decomposition of a function <span class="math notranslate nohighlight">\(f(x)\)</span> with period <span class="math notranslate nohighlight">\(L\)</span> are found as follows:</p>
+<div class="math notranslate nohighlight">
+\[a_k = \frac{ &lt;f(x),\cos(2\pi k x/L) &gt; }{  &lt;\cos(2\pi k x/L) ,\cos(2\pi k x/L) &gt;} =\frac{2}{L} \int _{-\frac{L}{2}} ^{\frac{L}{2}} f(x) \cos(2\pi k x/L) dx \]</div>
+<div class="math notranslate nohighlight">
+\[  b_k = \frac{ &lt;f(x), \sin(2\pi k x/L)&gt; }{  &lt; \sin(2\pi k x/L), \sin(2\pi k x/L)&gt;} = \frac{2}{L} \int _{-\frac{L}{2}} ^{\frac{L}{2}} f(x) \sin(2\pi k x/L) dx\]</div>
+<div class="math notranslate nohighlight">
+\[ a_0 = \frac{1}{L} \int _{-\frac{L}{2}} ^{\frac{L}{2}} f(x)dx\]</div>
+<p>The factor of <span class="math notranslate nohighlight">\(L/2\)</span> in front of the integrals serves to divide out the norm of the basis function. Note that the constant term <span class="math notranslate nohighlight">\(c_0\)</span> is the mean value of the function on the interval <span class="math notranslate nohighlight">\((-L/2, L/2)\)</span> - it moves the function up or down, while the sines and cosines all have the mean value of zero.</p>
+<div class="section" id="fourier-decomposition-of-a-square-wave">
+<h3>Fourier decomposition of a square wave<a class="headerlink" href="#fourier-decomposition-of-a-square-wave" title="Permalink to this headline">¶</a></h3>
+<p>Take a common example of a simple function subject to Fourier decomposition: a square wave, which is a function which equals one constant value (e.g. -1) for half of the interval, and another constant (e.g. 1) for the other half of the interval. Here is how we find the coefficients of the sines and cosines analytically:</p>
+<div class="figure align-default" id="fig-square-wave-1">
+<img alt="_images/square_wave1.png" src="_images/square_wave1.png" />
+<p class="caption"><span class="caption-number">Fig. 9 </span><span class="caption-text">Approximations of a square wave function with five terms of the Fourier series. <a class="reference external" href="https://levelup.gitconnected.com/representing-a-square-wave-with-a-fourier-series-and-python-6d43beb19442">source</a></span><a class="headerlink" href="#fig-square-wave-1" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="fig-square-wave-2">
+<img alt="_images/square_wave2.png" src="_images/square_wave2.png" />
+<p class="caption"><span class="caption-number">Fig. 10 </span><span class="caption-text">Approximations of a square wave function with twenty terms of the Fourier series. <a class="reference external" href="https://levelup.gitconnected.com/representing-a-square-wave-with-a-fourier-series-and-python-6d43beb19442">source</a></span><a class="headerlink" href="#fig-square-wave-2" title="Permalink to this image">¶</a></p>
+</div>
+<div class="math notranslate nohighlight">
+\[ a_k = \frac{2}{L} \int _{-\frac{L}{2}} ^{\frac{L}{2}} f(x) \cos(2\pi k x/L) dx = \frac{2}{L} \int _{-\frac{L}{2}} ^0 -\cos(2\pi k x/L) dx + \frac{2}{L} \int _0 ^{\frac{L}{2}}  \cos(2\pi k x/L) dx = \]</div>
+<div class="math notranslate nohighlight">
+\[= \frac{2}{L} \left[ \frac{L}{2\pi k} \sin(2\pi k x/L) |_{-\frac{L}{2}} ^0   -  \frac{L}{2\pi k}  \sin(2\pi k x/L)|_0^{\frac{L}{2}} \right] = \frac{1}{\pi k} \left[ 0-0 -0+0\right] = 0 \]</div>
+<div class="math notranslate nohighlight">
+\[ b_k = \frac{2}{L} \int _{-\frac{L}{2}} ^{\frac{L}{2}} f(x) \sin(2\pi k x/L) dx = \frac{2}{L} \int _{-\frac{L}{2}} ^0 -\sin(2\pi k x/L) dx + \frac{2}{L} \int _0 ^{\frac{L}{2}}  \sin(2\pi k x/L) dx = \]</div>
+<div class="math notranslate nohighlight">
+\[= \frac{2}{L} \left[ -\frac{L}{2\pi k} \cos(2\pi k x/L) |_{-\frac{L}{2}} ^0   + \frac{L}{2\pi k}  \cos(2\pi k x/L)|_0^{\frac{L}{2}} \right] = \frac{1}{\pi k} \left[ 1 -  \cos(\pi k)  + 1 - \cos(\pi k) \right] = 0 \; or \; \frac{4}{\pi k}  \]</div>
+<p>The coefficients for the cosines are zeros, but there are nonzero values for the sines, when <span class="math notranslate nohighlight">\(k\)</span> is odd, and <span class="math notranslate nohighlight">\(\cos(\pi k)  = -1\)</span>. When <span class="math notranslate nohighlight">\(k\)</span> is even, <span class="math notranslate nohighlight">\(\cos(\pi k)  = 1\)</span>, and the expression reduces to 0. Thus, the Fourier series representing the square wave with period <span class="math notranslate nohighlight">\(L\)</span> looks like this:</p>
+<div class="math notranslate nohighlight">
+\[ f(x) = \frac{4}{\pi}\sin(2 \pi x/ L)  + \frac{4}{3\pi}\sin(2 \pi 3 x/ L) +  \frac{4}{5\pi}\sin(2 \pi 5 x/ L) + ... \]</div>
+<p>Notice how the coefficients decline for higher frequency terms. This means that one can take a finite, often just a handful of lowest-frequency terms and have a decent approximation of the function. This is typical for most reasonable functions, as we will discuss below.</p>
+</div>
+<div class="section" id="complex-fourier-series">
+<h3>complex Fourier series<a class="headerlink" href="#complex-fourier-series" title="Permalink to this headline">¶</a></h3>
+<p>We saw that periodic functions can be approximated by a sum of sines and/or cosines of different frequencies, which is called the Fourier series. Because both sines and cosines are needed to represent a function that is not purely odd or even, a more compact complex representation of the Fourier series is used:</p>
+<div class="math notranslate nohighlight">
+\[
+f(x) = \sum_{n=-\infty}^\infty c_k e^{i2\pi x k/L}
+\]</div>
+<p>Here <span class="math notranslate nohighlight">\(L\)</span> denotes the length of the period of the function <span class="math notranslate nohighlight">\(f(x)\)</span>, and <span class="math notranslate nohighlight">\(c_n\)</span> are the complex coefficients of the Fourier series, each corresponding to the frequency <span class="math notranslate nohighlight">\(n/L\)</span>. They are found by the same integration as the ones for sine and cosines series:</p>
+<div class="math notranslate nohighlight">
+\[ c_k = \frac{1}{L}\int_{-L/2}^{L/2} f(x) e^{-i2\pi kx/L}dx; \; \; -\infty &lt; k &lt; \infty \]</div>
+<p>The coefficient <span class="math notranslate nohighlight">\(c_0\)</span>, as can be seen from the integral, is the average value of <span class="math notranslate nohighlight">\(f(x)\)</span> on the interval <span class="math notranslate nohighlight">\([-L/2,L/2]\)</span>.</p>
+<p>In the complex Fourier series, positive and negative frequencies are used in order to combine both sines and cosines into the same series, by using the expressions <span class="math notranslate nohighlight">\(e^{i2\pi x k/L} + e^{- i2\pi x k/L} =  2\cos(\pi x n/L)\)</span> and  <span class="math notranslate nohighlight">\(e^{i2\pi x n/L} - e^{- i2\pi x n/L} =  2i\sin(2\pi x n/L)\)</span>. Thus, the complex coefficients <span class="math notranslate nohighlight">\(c_n\)</span> are related to the coefficients <span class="math notranslate nohighlight">\(a_k\)</span> and <span class="math notranslate nohighlight">\(b_k\)</span> of the cosine and sine series as follows:</p>
+<div class="math notranslate nohighlight">
+\[ 
+c_k = \frac{a_k -ib_k}{2}; \; c_{-k} = \frac{a_k + ib_k}{2}; \; k \geq 1
+\]</div>
+<p>Note that as long as <span class="math notranslate nohighlight">\(a_n\)</span> and <span class="math notranslate nohighlight">\(b_n\)</span> are real (which is the same as saying the function <span class="math notranslate nohighlight">\(f(x)\)</span> is real) the coefficients with opposite signs will be complex conjugates of each other.</p>
+</div>
+</div>
+<div class="section" id="discrete-fourier-transform">
+<h2>Discrete Fourier Transform<a class="headerlink" href="#discrete-fourier-transform" title="Permalink to this headline">¶</a></h2>
+<p>Now let us consider a series of data points, instead of idealized functions, since in reality the data are never described by perfect continuous functions. Let us suppose that they come from measuring a certain function <span class="math notranslate nohighlight">\(f(x)\)</span> over a range of length <span class="math notranslate nohighlight">\(L\)</span> at regular intervals. This is called \emph{sampling} of the function and the sampling interval (in units of <span class="math notranslate nohighlight">\(x\)</span>) between the sample points is called <span class="math notranslate nohighlight">\(\Delta = L/N\)</span>, where <span class="math notranslate nohighlight">\(N\)</span> is the number of sample points. As a result, we get a sequence of <span class="math notranslate nohighlight">\(N\)</span> measurements <span class="math notranslate nohighlight">\(\{x_i\}\)</span>. In order to decompose the sampled inputs into their frequency components,  we need to find the coefficients of the Fourier series. Let us use the notation <span class="math notranslate nohighlight">\(\{X_k\}\)</span> for the Fourier coefficients, and define the following the <em>Discrete Fourier Transform</em>:</p>
+<div class="math notranslate nohighlight">
+\[
+ X_{k} = \sum_{n=0}^{N-1} x_{n} e^{-i 2\pi kn /N}
+\]</div>
+<p>It is called the Discrete Fourier Transform because it is based on the finite data set, and thus computation of coefficients requires summation instead of integration. Let us consider what frequency each coefficient <span class="math notranslate nohighlight">\(X_k\)</span> corresponds to. When <span class="math notranslate nohighlight">\(k=0\)</span>, <span class="math notranslate nohighlight">\(e^0=1\)</span> and we just have the sum of all the sample points. This is called the zero frequency term, or sometimes the DC (direct current) term by electrical engineers. The other terms have frequencies given by <span class="math notranslate nohighlight">\(k/N\)</span>, all the way up to <span class="math notranslate nohighlight">\((N-1)/N\)</span>. Note here that we assume for convenience that the interval <span class="math notranslate nohighlight">\(\Delta\)</span> is 1, so the frequency corresponds to the fraction of points in the cycle (e.g. <span class="math notranslate nohighlight">\(k/N\)</span>). The frequency ranges from the lowest of <span class="math notranslate nohighlight">\(1/N\)</span> to the highest of <span class="math notranslate nohighlight">\((N-1)/N\)</span>. However, the highest frequency is actually equivalent to <span class="math notranslate nohighlight">\(-1/N\)</span>, because going around the <span class="math notranslate nohighlight">\((N-1)/N\)</span> fraction of a circle in one direction is the same as going <span class="math notranslate nohighlight">\(1/N\)</span> fraction in the opposite direction.</p>
+<p>Thus, the first half of the coefficients  correspond to positive frequencies in increasing order, until the frequency <span class="math notranslate nohighlight">\(1/2\)</span> is reached, and then the coefficients correspond to negative frequencies in descending order of the absolute value. In fact, if the input points are real, the coefficients of positive and negative frequencies are symmetric, and so for the Pyhon indexing above, we have: <span class="math notranslate nohighlight">\(C(k+1) = C(N-k+1)\)</span> (for <span class="math notranslate nohighlight">\(k&gt;0\)</span>). This is because the complex terms have to add up to real numbers, so this ensures that terms with opposite frequencies are complex conjugates (convince yourself of this fact).</p>
+</div>
+<div class="section" id="sampling-theorem-and-aliasing">
+<h2>sampling theorem and aliasing<a class="headerlink" href="#sampling-theorem-and-aliasing" title="Permalink to this headline">¶</a></h2>
+<p>By representing a periodic function <span class="math notranslate nohighlight">\(f(x)\)</span> in terms of the Fourier series, we reduce its description to the values of the coefficients <span class="math notranslate nohighlight">\(c_k\)</span>. We say that this set of coefficients is a representation in the <em>frequency domain</em> as opposed to the time or space domain of the original variable <span class="math notranslate nohighlight">\(x\)</span>. This is very useful for analyzing the types of frequencies that a function contains.</p>
+<p>To elaborate, <span class="math notranslate nohighlight">\(c_k\)</span> gives the weight of the sine or the cosine function with frequency <span class="math notranslate nohighlight">\(k\)</span>, that is, one which has <span class="math notranslate nohighlight">\(k\)</span> repetitions within the period <span class="math notranslate nohighlight">\(L\)</span>. Higher frequency terms are more wiggly, and are needed to represent functions with high slopes. Lower frequency terms represent the larger, slower varying shape of the function. For any reasonable function, the higher frequency terms will generally have smaller coefficients than lower-frequency terms, and for really high frequencies will be very small. This enables one simple use of the Fourier series: a periodic function can be approximated by a few lower-frequency terms, so it can be represented by a few numbers. This has great applications in image and sound compression.</p>
+<p>The highest frequency possibly in a sample of <span class="math notranslate nohighlight">\(N\)</span> data points is called the <em>Nyquist critical frequency</em> <span class="math notranslate nohighlight">\(f_c\)</span>. It depends on the sampling interval <span class="math notranslate nohighlight">\(\Delta\)</span> like this: <span class="math notranslate nohighlight">\(f_c = 1/2\Delta\)</span>. The intuition behind this is that in order to detect a frequency <span class="math notranslate nohighlight">\(f\)</span>, one needs to make at least two measurements during one period <span class="math notranslate nohighlight">\(1/f_c\)</span>. (Convince yourself of this by drawing a sine wave and sampling it two or fewer times per period.) Since each measurement takes <span class="math notranslate nohighlight">\(\Delta\)</span> units, the highest frequency we can sample is <span class="math notranslate nohighlight">\(1/2\Delta\)</span>. This leads to a remarkable result, called the Sampling Theorem:</p>
+<div class="admonition-theorem admonition">
+<p class="admonition-title">Theorem</p>
+<p>If a function <span class="math notranslate nohighlight">\(h(x)\)</span> contains no higher frequencies than some <span class="math notranslate nohighlight">\(f_c\)</span>, more precisely its Fourier transform <span class="math notranslate nohighlight">\(\hat h(f) = 0\)</span> for any <span class="math notranslate nohighlight">\(f&gt;f_c\)</span>, then this function can be completely represented by a sample with the interval <span class="math notranslate nohighlight">\(\Delta\)</span> such that <span class="math notranslate nohighlight">\(\Delta &lt; 1/2f_c\)</span>.</p>
+</div>
+<p>Practically, this means that any function that does not change too abruptly (which requires higher frequency terms) can be represented by a discrete set of low-frequency terms. However, in practice there is always noise or abrupt changes, so one cannot have what is known a <em>bandwidth limit</em> (meaning the band of frequencies contributing to the function is limited). Then, when we try to represent a function with a discrete set of points that we Fourier-transform, when we perform the inverse FT, we get error due to lack of the high-frequency terms. This is called <em>aliasing error</em>.</p>
+</div>
+<div class="section" id="fast-fourier-transform">
+<h2>Fast Fourier Transform<a class="headerlink" href="#fast-fourier-transform" title="Permalink to this headline">¶</a></h2>
+<p>Now let us get down to the business of computing the Fourier decomposition of an input of <span class="math notranslate nohighlight">\(N\)</span> data points.  In equation \ref{eq:dft} in the discrete Fourier transform section, we found an analytic formula for finding the coefficients of a complex Fourier series by summation of <span class="math notranslate nohighlight">\(N\)</span> components. In order to obtain all <span class="math notranslate nohighlight">\(N\)</span> Fourier coefficients, we would need to perform approximately <span class="math notranslate nohighlight">\(N^2\)</span> operations (<span class="math notranslate nohighlight">\(N\)</span> multiplications plus <span class="math notranslate nohighlight">\(N-1\)</span> additions for each of the <span class="math notranslate nohighlight">\(N\)</span> coefficients). This means that as the number of inputs grows, the computational cost of performing the Discrete Fourier Transform grows quadratically. This is a major problem because Discrete Fourier Transforms are so ubiquitous - they are at the heart of graphics engines, audio and image analysis, and many other computationally intensive applications. In this section we will describe a truly transformational algorithm which dramatically reduces the computational cost of a DFT, descriptively called the Fast Fourier Transform (FFT). Specifically, we will describe the classic Cooley-Tukey algorithm \cite{}, which was the first type of FFT; subsequently other variations were developed, which have some advantages, but the original FFT is so fundamental to modern computing that I will present it in this section.</p>
+<div class="section" id="splitting-the-data-into-even-and-odd-inputs">
+<h3>splitting the data into even and odd inputs<a class="headerlink" href="#splitting-the-data-into-even-and-odd-inputs" title="Permalink to this headline">¶</a></h3>
+<p>Let the set of inputs for the Discrete Fourier Transform consist of <span class="math notranslate nohighlight">\(N\)</span> numbers, <span class="math notranslate nohighlight">\(\{x_n\}\)</span>. This number <span class="math notranslate nohighlight">\(N\)</span> could be large, and practicing computational scientists have thought about a way of simplifying the calculation. It turns out that there is a beautiful symmetry in the Fourier calculation that enables the calculation of the Fourier coefficients of <span class="math notranslate nohighlight">\(N\)</span> data points in terms of the Fourier coefficients of two halves of the data set: the even and the odd numbered inputs. First, let us write down the expression in equation \ref{eq:dft} in terms of sums of the <span class="math notranslate nohighlight">\(N/2\)</span> even and the <span class="math notranslate nohighlight">\(N/2\)</span> odd inputs, as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+ X_{k} = \sum_{n=0}^{N-1} x_{n} e^{-i 2\pi kn /N} = \sum_{m=0}^{N/2-1} x_{2m} e^{-i2\pi (2m)k/N} + \sum_{m=0}^{N/2-1} x_{2m+1} e^{-i2\pi (2m+1)k/N}
+\]</div>
+<p>The two sums look very similar to the sum that produces the Fourier coefficients for the <span class="math notranslate nohighlight">\(N\)</span> inputs. In fact, the first sum, is identical to the DFT of  the even-numbered inputs, which we will denote as <span class="math notranslate nohighlight">\(X_{k}^{(e)}\)</span>. The second sum can be transformed by taking the factor <span class="math notranslate nohighlight">\(e^{-i2\pi k/N}\)</span> out of the sum  into the sum for the DFT of the odd-numbered inputs , which we denote <span class="math notranslate nohighlight">\(X_k^{(o)}\)</span>. Conventionally in Fourier literature,  the factor  <span class="math notranslate nohighlight">\(e^{-i2\pi k/N}\)</span>, which is the  <span class="math notranslate nohighlight">\(N\)</span>th root of unity raised to the <span class="math notranslate nohighlight">\(k\)</span>th power,  is called the <em>twiddle factor</em>, and is notated <span class="math notranslate nohighlight">\(w^k\)</span> (for <span class="math notranslate nohighlight">\(N\)</span> inputs). Therefore, we have the following expression:</p>
+<div class="math notranslate nohighlight">
+\[ X_k = X_{k}^{(e)} + w^k X_k^{(o)}\]</div>
+<p>Note that this formula works for <span class="math notranslate nohighlight">\(0\leq k \leq N/2-1\)</span>,  since the DFTs of halves of the data set have only half of the outputs (<span class="math notranslate nohighlight">\(N/2\)</span>). However, due to its periodicity, the  DFT repeats itself for coefficients that go beyond the size of the inputs; for a DFT of size <span class="math notranslate nohighlight">\(N\)</span>, <span class="math notranslate nohighlight">\(X_{k} = X_{k-N}\)</span>. Therefore, we can compute the other half of the Fourier coefficients of the original data set  (<span class="math notranslate nohighlight">\(0 \leq k \leq N/2-1\)</span>) to obtain the same formula:</p>
+<div class="math notranslate nohighlight">
+\[
+ X_{k} = X_{k}^{(e)} + w^{k} X_{k}^{(o)}
+\]</div>
+<p>This result, known as the <em>Danielson-Lanczos lemma</em>, allows the calculation of a DFT with <span class="math notranslate nohighlight">\(N\)</span> inputs, in terms of the coefficients of two DFTs with <span class="math notranslate nohighlight">\(N/2\)</span> inputs. It is clear that even applying this splitting once leads to computational advantage, since as we noted above, DFT requires on the order of <span class="math notranslate nohighlight">\(N^2\)</span> arithmetic operations. Thus, performing DFTs on half of the number of inputs will reduce the number of calculations by a factor of 4, and since it is performed for each half of the data, this results in approximately two-fold reduction in operations, as it requires only on the order of <span class="math notranslate nohighlight">\(N\)</span> additional operations to reassemble the full DFT.</p>
+</div>
+<div class="section" id="recursive-splitting-and-reassembly">
+<h3>recursive splitting and reassembly<a class="headerlink" href="#recursive-splitting-and-reassembly" title="Permalink to this headline">¶</a></h3>
+<p>If splitting the problem in half once reduces the computational cost, why not do it again? and again? This was the idea that Cooley and Tukey came up with in 1965. For example, if the number of inputs is divisible by 4, one can split the data sets into even- and odd-numbered halves, and then split each of those into even and odd-numbered halves, and perform DFT on the quarter-data sets separately. The resulting four sets of Fourier coefficients will be labeled <span class="math notranslate nohighlight">\(\{X^{(ee)}\}\)</span>, <span class="math notranslate nohighlight">\(\{X^{(eo)}\}\)</span>, <span class="math notranslate nohighlight">\(\{X^{(oe)}\}\)</span>, and <span class="math notranslate nohighlight">\(\{X^{(oo)}\}\)</span> (e.g. the second one represents the quarter of data set that had even indices in the original set, and odd indices in the even half, corresponding to indices 2,6,10, etc.), and they can be recombined in order to compute the Fourier coefficients of the entire set. Using the above formula, we can find the the expression for reassembling the four quarter-size DFTs to compute the DFT. The twiddle factor for quarter-size data sets is <span class="math notranslate nohighlight">\(e^{-i2\pi k/(N/2)} =e^{-i2\pi 2k/N}  = w^{2k}\)</span>. Therefore, the formula for the DFT, for indices <span class="math notranslate nohighlight">\(0 \leq k \leq N-1\)</span> is:
+$<span class="math notranslate nohighlight">\( X_k =  X^{(ee)} + w^{2k}X^{(eo)}  + w^k X^{(oe)} + w^{3k} X^{(oo)}\)</span>$</p>
+<p>We can continue further dividing the data into halves and reassembling the resulting DFT coefficients, as long as the number of data points in the subsets is divisible by two. In order to achieve maximal decomposition, let us assume that the number of inputs is a power of 2 (<span class="math notranslate nohighlight">\(N=2^M\)</span>). Then after <span class="math notranslate nohighlight">\(M\)</span> such divisions into even and odd subsets, the data are subdivided into <span class="math notranslate nohighlight">\(N\)</span> subsets of single values. The DFT of a single data point, by the formula  in equation above is just the data point. Therefore, for any data point with a given pattern of even and odd divisions, e.g. <span class="math notranslate nohighlight">\(ooeeo...\)</span>, there is a corresponding singlet DFT with index <span class="math notranslate nohighlight">\(n\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ x_n  =  X^{(ooeeo...)}\]</div>
+<p>The question is, how does the index <span class="math notranslate nohighlight">\(n\)</span> of the data point correspond to the string of even and odd divisions in the DFT? The answer turns out to be simple and elegant in binary representation of indices. Consider, for example, a data set of four input values, indexed <span class="math notranslate nohighlight">\(\{x_0,x_1,x_2, x_3\}\)</span>. The first division splits them into <span class="math notranslate nohighlight">\(\{x_0,x_2\}\)</span> and <span class="math notranslate nohighlight">\(\{x_1,x_3\}\)</span>, and the second subdivides them into singleton sets: <span class="math notranslate nohighlight">\(\{x_0\},\{x_2\},\{x_1\},\{x_3\}\)</span>. The rearrangement of indices due to divisions into evens and odds is captured by \emph{bit reversal} of the binary indices. In binary, we can write <span class="math notranslate nohighlight">\(0=00; 1=01; 2=10; 3=11\)</span>. Reversing the bits, that is re-writing the binary numbers from right to left, yields: <span class="math notranslate nohighlight">\(00=0, 10=2, 01=1; 11=3\)</span>, which is exactly the order we produced by two splittings. Therefore, we can find the DFTs of each of the resulting singleton sets by reordering the input values by bit-reversal and then recombining them using the Danielson-Lanczos formula above.</p>
+<p><strong>Example.</strong> Let us calculate the DFT for the data set <span class="math notranslate nohighlight">\(\{x_0, x_1, x_2, x_3\} = \{2,  -1, 2, -1 \}\)</span>. As we saw above, we split the four inputs into halves twice until we are left with singleton sets, which are then arranges as follows: <span class="math notranslate nohighlight">\( \{x_0, x_1, x_2, x_3 \}  = \{2,  2 -1, -1 \}\)</span>. Then we recombine the value with appropriate twiddle factors to calculate the DFT. First, calculate the twiddle factors for DFT with <span class="math notranslate nohighlight">\(N=2\)</span>:
+$<span class="math notranslate nohighlight">\(w_0 = 1; \;  w_1 = e^{-i\pi} = -1\)</span><span class="math notranslate nohighlight">\(
+\)</span><span class="math notranslate nohighlight">\( X_0^{(e)} = x_0 + x_2 = 4 \)</span><span class="math notranslate nohighlight">\(
+\)</span><span class="math notranslate nohighlight">\( X_1^{(e)} = x_0 + w^1x_2 = 0\)</span><span class="math notranslate nohighlight">\(
+\)</span><span class="math notranslate nohighlight">\( X_0^{(o)} =  x_1 + x_3 =  - 2\)</span><span class="math notranslate nohighlight">\(
+\)</span><span class="math notranslate nohighlight">\( X_1^{(o)} =  x_1 + w^1 x_3 =  0\)</span>$</p>
+<p>Calculate the twiddle factors for <span class="math notranslate nohighlight">\(N=4\)</span>:
+$<span class="math notranslate nohighlight">\(w_0 = 1; \;  w_1 = e^{-i\pi/2} = -i ; \; w_2 = e^{-i\pi } = -1 ;\;  w_3 = e^{-i3\pi/2} = i\)</span><span class="math notranslate nohighlight">\(
+\)</span><span class="math notranslate nohighlight">\( X_0 =  X_0^{(e)}  + X_0^{(o)} = 2\)</span><span class="math notranslate nohighlight">\(
+\)</span><span class="math notranslate nohighlight">\( X_1 =  X_1^{(e)}  + w^1 X_1^{(o)}  = 0 \)</span><span class="math notranslate nohighlight">\(
+\)</span><span class="math notranslate nohighlight">\( X_2 =  X_0^{(e)}  + w^2 X_1^{(o)}  = 6\)</span><span class="math notranslate nohighlight">\(
+\)</span><span class="math notranslate nohighlight">\( X_3 =  X_1^{(e)}  + w^3 X_1^{(o)} =  0 \)</span>$</p>
+<p>Each DFT coefficient contains information about the periodicity of the data set: the zeroth one is the sum (average signal); the first one measures the strength of the period one component (in this case, none), the second one is the strength of the period two component (in this case, the only frequency present), and the third one mirrors the period one (since there cannot be a period three signal measured in four points.)</p>
+<p>This calculation for a small data set illustrates how the FFT algorithm reduces the calculation of the DFT coefficients to reassembling the values of the inputs <span class="math notranslate nohighlight">\(x_k\)</span> with the bit-reversed indices with appropriate twiddle factors. This is illustrated in <a class="reference internal" href="#fig-fft-butterfly"><span class="std std-numref">Fig. 11</span></a>, known as the “FFT butterfly” for its visual appearance. The figure demonstrates how the original data points on the left, if arranged in the bit-reversed order are scrambled up by the even/odd divisions, and how they end up in the normal order on the right hand side.</p>
+<div class="figure align-default" id="fig-fft-butterfly">
+<img alt="_images/DIT-FFT-butterfly.png" src="_images/DIT-FFT-butterfly.png" />
+<p class="caption"><span class="caption-number">Fig. 11 </span><span class="caption-text">Schematic of the FFT butterfly for 8 input points <a class="reference external" href="https://commons.wikimedia.org/wiki/File:DIT-FFT-butterfly.png">source</a></span><a class="headerlink" href="#fig-fft-butterfly" title="Permalink to this image">¶</a></p>
+</div>
+<p>The result of the FFT calculation is exactly the same as the direct DFT, but the FFT takes fewer arithmetic operations to perform. As mentioned above, computing the DFT directly requires <span class="math notranslate nohighlight">\(O(N^2)\)</span> operations (the notation means a scalar multiple of <span class="math notranslate nohighlight">\(N^2\)</span>). The FFT starts by rearranging the data using bit-reversal (which takes only a small number of calculations). The key to efficiency is recursive reassembly of the DFT, which happens <span class="math notranslate nohighlight">\(\log_2 (N)\)</span> times, one for each split (assuming that <span class="math notranslate nohighlight">\(N\)</span> is a power of two, which allows for a clean division into singletons.) This calculation, as shown in equation, requires only two operations (an addition and a multiplication by the pre-computed twiddle factor) for each of the <span class="math notranslate nohighlight">\(N\)</span> DFT coefficients. Therefore, the total number of operations for FFT is <span class="math notranslate nohighlight">\(O(N \log_2 (N) )\)</span> instead of <span class="math notranslate nohighlight">\(O(N^2)\)</span> for DFT. This results is a huge gain in efficiency for large data sets, for example, for a million data points <span class="math notranslate nohighlight">\(\log_2(10^6) \approx 20\)</span>, the number of operations is reduced by a factor of 50,000.</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="PCA.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Principal Component Analysis</p>
+        </div>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Dmitry Kondrashov<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
