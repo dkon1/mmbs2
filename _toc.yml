@@ -8,3 +8,4 @@ chapters:
 - file: gradient_optimization
 - file: PCA
 - file: fourier_series
+- file: convolution
